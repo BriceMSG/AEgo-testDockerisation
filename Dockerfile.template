@@ -3,12 +3,6 @@ FROM resin/raspberrypi3-node
 # Enable systemd init system
 ENV INITSYSTEM on
 
-# Set the locale
-RUN locale-gen %%locale%%.UTF-8
-ENV LANG %%locale%%.UTF-8
-ENV LANGUAGE %%locale%%:en
-ENV LC_ALL %%locale%%.UTF-8
-
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
@@ -19,6 +13,7 @@ ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 # Use apt-get to install dependencies
 RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends \
     dnsmasq \
+    locale-gen \
     hostapd \
     iproute2 \
     iw \
@@ -33,6 +28,12 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-rec
     git \
     rfkill && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set the locale
+RUN locale-gen %%locale%%.UTF-8
+ENV LANG %%locale%%.UTF-8
+ENV LANGUAGE %%locale%%:en
+ENV LC_ALL %%locale%%.UTF-8
 
 ###############################
 # Install node
