@@ -13,7 +13,7 @@ ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 # Use apt-get to install dependencies
 RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends \
     dnsmasq \
-    locale-gen \
+    locales \
     hostapd \
     iproute2 \
     iw \
