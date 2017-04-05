@@ -1,0 +1,147 @@
+body:after, body::after {
+	width: 100%;
+	height: 100%;
+}
+.input-field{
+	margin: 1rem 0;
+}
+.input-field input[type=radio]{
+	display: none;
+}
+.input-field label{
+	position: relative;
+	display: block;
+	margin-left: 2rem;
+	font-size: 1rem;
+}
+.input-field input+label:before,
+.input-field input+label::before{
+	position: absolute;
+	top: 0;
+	left: -1.5rem;
+	width: 1rem;
+	line-height: 20px;
+	content: 'radio_button_unchecked';
+	color: #2f87c4;
+	font-family: 'Material Icons';
+	font-size: 1.2rem;
+}
+.input-field input:checked+label:before,
+.input-field input:checked+label::before{
+	content: 'radio_button_checked';
+}
+.input-field textarea {
+	height: 130px;
+}
+.notice {
+	text-align: center !important;
+}
+.notice p{
+	font-size: 2.8125rem;
+	letter-spacing: normal;
+	margin-top: 0;
+}
+.p0{padding:0;}
+.wordSelected {
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
+	left: 12px;
+	background-color: rgba(47, 135, 196, 0.6);
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+}
+#content {
+	min-height: 100%;
+	height: 100%;
+	max-height: 100%;
+	min-width: 100%;
+	width: 100%;
+	max-width: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+#everybody,
+#appSelect {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 64px;
+	opacity: 1;
+	-webkit-transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+	z-index: 1;
+}
+#everybody .vwrap,
+#appSelect .vwrap {
+	width: 100%;
+	height: 100%;
+}
+#everybody {
+	opacity: 1;
+}
+#appSelect {
+	opacity: 0;
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
+	z-index: 2;
+}
+#appSelect.show{
+	opacity: 1;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}
+#everybody.hide{
+	opacity: 0;
+	-webkit-transform: scale(.75);
+	transform: scale(.75);
+}
+
+#jingle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-height: 100%;
+	height: 100%;
+	max-height: 100%;
+	min-width: 100%;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+	opacity: 1;
+	z-index: 499;
+}
+#jingle .consigne {
+	z-index: 3;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	padding: 1.5rem 0;
+}
+#jingle .masque {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-background-size: cover !important;
+	-moz-background-size: cover !important;
+	background-size: cover !important;
+	opacity: 1;
+	z-index: 2;
+	background: #fff url(jingle.png) 50% 50% no-repeat;
+}
+.accueil{
+	background: transparent url(accueil.jpg) top center no-repeat;
+	-webkit-background-size: cover;
+	background-size: cover;
+    height: 576px;
+}
