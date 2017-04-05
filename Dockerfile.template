@@ -6,6 +6,8 @@ ENV INITSYSTEM on
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
+RUN echo $dir
+
 ###############################
 # Install needed softwares
 ###############################
@@ -15,7 +17,6 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-rec
 RUN apt-get install -yq --no-install-recommends \
     dnsmasq \
     locales \
-    apt-utils \
     hostapd \
     iproute2 \
     iw \
