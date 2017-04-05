@@ -3,20 +3,21 @@ FROM resin/raspberrypi3-node
 # Enable systemd init system
 ENV INITSYSTEM on
 
-# Set the working directory
-WORKDIR /usr/src/app
-
-# We have split up the resin-wifi-connect and Display-O-Tron HAT configuration to make clear
-# the different parts needed. In your dockerfile you should combine these steps to reduce
-# the number of layers.
-
-# -- Start of resin-wifi-connect section -- #
+# Set the locale
+RUN locale-gen %%locale%%.UTF-8
+ENV LANG %%locale%%.UTF-8
+ENV LANGUAGE %%locale%%:en
+ENV LC_ALL %%locale%%.UTF-8
 
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
+###############################
+# Install needed softwares
+###############################
+
 # Use apt-get to install dependencies
-RUN apt-get update && apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends \
     dnsmasq \
     hostapd \
     iproute2 \
@@ -33,7 +34,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     rfkill && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+###############################
 # Install node
+###############################
 
 ENV NODE_VERSION 6.9.1
 RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
@@ -42,9 +45,73 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     rm "node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
+# Adding the ini script for nodejs
+RUN cat >> /home/pi/node-launcher.sh << 'EOF' \n\
+#!/bin/sh \n\
+nodejs /home/pi/$dir/nodejs/index.js \n\
+EOF
+RUN chmod +x /home/pi/node-launcher.sh && chown pi.pi /home/pi/node-launcher.sh
+RUN cat >> /etc/init.d/server-node.sh << 'EOF' \n\
+#!/bin/sh \n\
+/home/pi/node-launcher.sh \n\
+EOF
+RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
+
+###############################
+# param Apache
+###############################
+
+RUN ln -s "/home/pi/$dir" "/var/www/$dir"
+RUN a2ensite "%%ndd2%%.conf"
+RUN a2enmod deflate expires filter headers rewrite
+RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
+<VirtualHost *:80> \n\
+	ServerAdmin service.informatique@my-serious-game.com \n\
+	ServerName apprenant.%%ndd%%.fr \n\
+	DocumentRoot /var/www/%%ndd2%%/apprenant \n\
+	<Directory /var/www/%%ndd2%%/apprenant> \n\
+		Options -Indexes +FollowSymLinks \n\
+		AllowOverride All \n\
+	</Directory> \n\
+</VirtualHost> \n\
+<VirtualHost *:80> \n\
+	ServerAdmin service.informatique@my-serious-game.com \n\
+	ServerName commun.%%ndd%%.fr \n\
+	DocumentRoot /var/www/%%ndd2%%/commun \n\
+	<Directory /var/www/%%ndd2%%/commun> \n\
+		Options -Indexes +FollowSymLinks \n\
+		AllowOverride All \n\
+	</Directory> \n\
+</VirtualHost> \n\
+<VirtualHost *:80> \n\
+	ServerAdmin service.informatique@my-serious-game.com \n\
+	ServerName formateur.%%ndd%%.fr \n\
+	DocumentRoot /var/www/%%ndd2%%/formateur \n\
+	<Directory /var/www/%%ndd2%%/formateur> \n\
+		Options -Indexes +FollowSymLinks \n\
+		AllowOverride All \n\
+	</Directory> \n\
+</VirtualHost> \n\
+<VirtualHost *:80> \n\
+	ServerAdmin service.informatique@my-serious-game.com \n\
+	ServerName projecteur.%%ndd%%.fr \n\
+	DocumentRoot /var/www/%%ndd2%%/projecteur \n\
+	<Directory /var/www/%%ndd2%%/projecteur> \n\
+		Options -Indexes +FollowSymLinks \n\
+		AllowOverride All \n\
+	</Directory> \n\
+</VirtualHost> \n\
+EOF
+RUN service apache2 reload
+
+################################
+# param network
+################################
+
+RUN cat >> /etc/hosts << 192.168.200.1  apprenant.%%ndd%%.fr commun.%%ndd%%.fr formateur.%%ndd%%.fr node.%%ndd%%.fr projecteur.%%ndd%%.fr
 
 WORKDIR /home/pi/alter-et-go
 
 COPY . ./
 
-CMD bash ./startup.sh
+CMD bash /home/pi/node-launcher.sh
