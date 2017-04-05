@@ -49,14 +49,14 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
 # Adding the ini script for nodejs
-RUN cat >> /home/pi/node-launcher.sh << 'EOF' \n\
+RUN cat >> /home/node-launcher.sh << 'EOF' \n\
 #!/bin/sh \n\
-nodejs /home/pi/%%dir%%/nodejs/index.js \n\
+nodejs /home/%%dir%%/nodejs/index.js \n\
 EOF
-RUN chmod +x /home/pi/node-launcher.sh && chown pi.pi /home/pi/node-launcher.sh
+RUN chmod +x /home/node-launcher.sh
 RUN cat >> /etc/init.d/server-node.sh << 'EOF' \n\
 #!/bin/sh \n\
-/home/pi/node-launcher.sh \n\
+/home/node-launcher.sh \n\
 EOF
 RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
 
@@ -64,7 +64,7 @@ RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
 # param Apache
 ###############################
 
-RUN ln -s "/home/pi/%%dir%%" "/var/www/%%dir%%"
+RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%"
 RUN a2ensite "%%ndd2%%.conf"
 RUN a2enmod deflate expires filter headers rewrite
 RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
@@ -113,8 +113,8 @@ RUN service apache2 reload
 
 RUN cat >> /etc/hosts << 192.168.200.1  apprenant.%%ndd%%.fr commun.%%ndd%%.fr formateur.%%ndd%%.fr node.%%ndd%%.fr projecteur.%%ndd%%.fr
 
-WORKDIR /home/pi/alter-et-go
+WORKDIR /home/alter-et-go
 
 COPY . ./
 
-CMD bash /home/pi/node-launcher.sh
+CMD bash /home/node-launcher.sh
