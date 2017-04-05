@@ -6,7 +6,7 @@ ENV INITSYSTEM on
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
-RUN mkdir /home/%%dir%%
+RUN mkdir /home/$dir
 
 ###############################
 # Install needed softwares
@@ -33,10 +33,10 @@ RUN apt-get install -yq --no-install-recommends \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the locale
-RUN locale-gen %%locale%%.UTF-8
-ENV LANG %%locale%%.UTF-8
-ENV LANGUAGE %%locale%%:en
-ENV LC_ALL %%locale%%.UTF-8
+RUN locale-gen $locale.UTF-8
+ENV LANG $locale.UTF-8
+ENV LANGUAGE $locale:en
+ENV LC_ALL $locale.UTF-8
 
 ###############################
 # Install node
@@ -52,7 +52,7 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
 # Adding the ini script for nodejs
 RUN cat >> /home/node-launcher.sh << 'EOF' \n\
 #!/bin/sh \n\
-nodejs /home/%%dir%%/nodejs/index.js \n\
+nodejs /home/$dir/nodejs/index.js \n\
 EOF
 RUN chmod +x /home/node-launcher.sh
 RUN cat >> /etc/init.d/server-node.sh << 'EOF' \n\
@@ -65,42 +65,42 @@ RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
 # param Apache
 ###############################
 
-RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%"
-RUN a2ensite "%%ndd2%%.conf"
+RUN ln -s "/home/$dir" "/var/www/$dir"
+RUN a2ensite "$ndd2.conf"
 RUN a2enmod deflate expires filter headers rewrite
-RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
+RUN cat > "/etc/apache2/sites-available/$ndd2.conf" << 'EOF' \n\
 <VirtualHost *:80> \n\
 	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName apprenant.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/apprenant \n\
-	<Directory /var/www/%%ndd2%%/apprenant> \n\
+	ServerName apprenant.$ndd.fr \n\
+	DocumentRoot /var/www/$ndd2/apprenant \n\
+	<Directory /var/www/$ndd2/apprenant> \n\
 		Options -Indexes +FollowSymLinks \n\
 		AllowOverride All \n\
 	</Directory> \n\
 </VirtualHost> \n\
 <VirtualHost *:80> \n\
 	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName commun.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/commun \n\
-	<Directory /var/www/%%ndd2%%/commun> \n\
+	ServerName commun.$ndd.fr \n\
+	DocumentRoot /var/www/$ndd2/commun \n\
+	<Directory /var/www/$ndd2/commun> \n\
 		Options -Indexes +FollowSymLinks \n\
 		AllowOverride All \n\
 	</Directory> \n\
 </VirtualHost> \n\
 <VirtualHost *:80> \n\
 	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName formateur.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/formateur \n\
-	<Directory /var/www/%%ndd2%%/formateur> \n\
+	ServerName formateur.$ndd.fr \n\
+	DocumentRoot /var/www/$ndd2/formateur \n\
+	<Directory /var/www/$ndd2/formateur> \n\
 		Options -Indexes +FollowSymLinks \n\
 		AllowOverride All \n\
 	</Directory> \n\
 </VirtualHost> \n\
 <VirtualHost *:80> \n\
 	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName projecteur.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/projecteur \n\
-	<Directory /var/www/%%ndd2%%/projecteur> \n\
+	ServerName projecteur.$ndd.fr \n\
+	DocumentRoot /var/www/$ndd2/projecteur \n\
+	<Directory /var/www/$ndd2/projecteur> \n\
 		Options -Indexes +FollowSymLinks \n\
 		AllowOverride All \n\
 	</Directory> \n\
@@ -112,7 +112,7 @@ RUN service apache2 reload
 # param network
 ################################
 
-RUN cat >> /etc/hosts << 192.168.200.1  apprenant.%%ndd%%.fr commun.%%ndd%%.fr formateur.%%ndd%%.fr node.%%ndd%%.fr projecteur.%%ndd%%.fr
+RUN cat >> /etc/hosts << 192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr
 
 WORKDIR /home/alter-et-go
 
