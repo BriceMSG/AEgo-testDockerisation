@@ -14,6 +14,7 @@ ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends \
     dnsmasq \
     locales \
+    apt-utils \
     hostapd \
     iproute2 \
     iw \
@@ -62,7 +63,7 @@ RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
 # param Apache
 ###############################
 
-RUN ln -s "/home/pi/$dir" "/var/www/$dir"
+RUN ln -s "/home/pi/%%dir%%" "/var/www/%%dir%%"
 RUN a2ensite "%%ndd2%%.conf"
 RUN a2enmod deflate expires filter headers rewrite
 RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
