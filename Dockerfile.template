@@ -11,7 +11,8 @@ ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 ###############################
 
 # Use apt-get to install dependencies
-RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends apt-utils
+RUN apt-get install -yq --no-install-recommends \
     dnsmasq \
     locales \
     apt-utils \
@@ -50,7 +51,7 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
 # Adding the ini script for nodejs
 RUN cat >> /home/pi/node-launcher.sh << 'EOF' \n\
 #!/bin/sh \n\
-nodejs /home/pi/$dir/nodejs/index.js \n\
+nodejs /home/pi/%%dir%%/nodejs/index.js \n\
 EOF
 RUN chmod +x /home/pi/node-launcher.sh && chown pi.pi /home/pi/node-launcher.sh
 RUN cat >> /etc/init.d/server-node.sh << 'EOF' \n\
