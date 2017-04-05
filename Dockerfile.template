@@ -46,3 +46,5 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
 WORKDIR /home/pi/alter-et-go
 
 COPY . ./
+
+CMD bash ./startup.sh
