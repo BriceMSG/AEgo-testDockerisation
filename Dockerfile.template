@@ -49,16 +49,18 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     rm "node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
-# Adding the ini script for nodejs
+
 RUN cat >> /home/node-launcher.sh << 'EOF' \n\
-#!/bin/sh \n\
-nodejs /home/%%dir%%/nodejs/index.js \n\
-EOF
+ #!/bin/sh \n\
+ nodejs /home/%%dir%%/nodejs/index.js \n\
+ EOF
+
 RUN chmod +x /home/node-launcher.sh
 RUN cat >> /etc/init.d/server-node.sh << 'EOF' \n\
-#!/bin/sh \n\
-/home/node-launcher.sh \n\
-EOF
+ #!/bin/sh \n\
+ /home/node-launcher.sh \n\
+ EOF
+ 
 RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
 
 ###############################
