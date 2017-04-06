@@ -60,8 +60,6 @@ RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults &
 # param Apache #
 ################
 
-RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%" && a2ensite "%%ndd2%%.conf" && a2enmod deflate expires filter headers rewrite
-
 RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
 <VirtualHost *:80> \n\
 	ServerAdmin service.informatique@my-serious-game.com \n\
@@ -100,6 +98,9 @@ RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
 	</Directory> \n\
 </VirtualHost> \n\
 EOF
+RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%"
+RUN a2ensite "%%ndd2%%.conf"
+RUN a2enmod deflate expires filter headers rewrite
 RUN service apache2 reload
 
 #################
