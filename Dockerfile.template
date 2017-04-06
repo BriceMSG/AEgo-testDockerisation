@@ -8,12 +8,6 @@ ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
 RUN mkdir /home/%%dir%%
 
-COPY . ./
-
-RUN chmod -R 777 ./start-up.sh
-
-RUN ./start-up.sh
-
 ############################
 # Install needed softwares #
 ############################
@@ -62,6 +56,10 @@ RUN echo $'#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh
 
 RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
 
+COPY . ./
 
+RUN chmod -R 777 ./start-up.sh
+
+RUN ./start-up.sh
 
 CMD bash /home/node-launcher.sh
