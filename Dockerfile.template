@@ -6,7 +6,9 @@ ENV INITSYSTEM on
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
-RUN mkdir /home/%%dir%%
+RUN mkdir /home/alter-et-go
+
+WORKDIR /home/alter-et-go
 
 ############################
 # Install needed softwares #
@@ -50,7 +52,7 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
 
-RUN echo $'#!/bin/sh\n nodejs /home/%%dir%%/nodejs/index.js' >> /home/node-launcher.sh
+RUN echo $'#!/bin/sh\n nodejs /home/alter-et-go/nodejs/index.js' >> /home/node-launcher.sh
 
 RUN echo $'#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh
 
