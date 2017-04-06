@@ -65,7 +65,7 @@ RUN echo $'<VirtualHost *:80> \n	ServerAdmin service.informatique@my-serious-gam
 RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%"
 RUN a2ensite "%%ndd2%%.conf"
 RUN a2enmod deflate expires filter headers rewrite
-RUN sudo service apache2 reload
+# RUN sudo service apache2 reload
 
 #################
 # param network #
