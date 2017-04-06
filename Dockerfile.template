@@ -50,17 +50,16 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
 
-RUN cat >> /home/node-launcher.sh << 'EOF' \n\
- #!/bin/sh \n\
- nodejs /home/%%dir%%/nodejs/index.js \n\
- EOF
+RUN echo $'#!/bin/sh\n\
+nodejs /home/%%dir%%/nodejs/index.js'\n\
+>> /home/node-launcher.sh
 
 RUN chmod +x /home/node-launcher.sh
-RUN cat >> /etc/init.d/server-node.sh << 'EOF' \n\
- #!/bin/sh \n\
- /home/node-launcher.sh \n\
- EOF
- 
+
+RUN echo $'#!/bin/sh\n\
+/home/node-launcher.sh'\n\
+>> /etc/init.d/server-node.sh
+
 RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
 
 ###############################
