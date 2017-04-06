@@ -60,44 +60,8 @@ RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults &
 # param Apache #
 ################
 
-RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
-<VirtualHost *:80> \n\
-	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName apprenant.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/apprenant \n\
-	<Directory /var/www/%%ndd2%%/apprenant> \n\
-		Options -Indexes +FollowSymLinks \n\
-		AllowOverride All \n\
-	</Directory> \n\
-</VirtualHost> \n\
-<VirtualHost *:80> \n\
-	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName commun.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/commun \n\
-	<Directory /var/www/%%ndd2%%/commun> \n\
-		Options -Indexes +FollowSymLinks \n\
-		AllowOverride All \n\
-	</Directory> \n\
-</VirtualHost> \n\
-<VirtualHost *:80> \n\
-	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName formateur.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/formateur \n\
-	<Directory /var/www/%%ndd2%%/formateur> \n\
-		Options -Indexes +FollowSymLinks \n\
-		AllowOverride All \n\
-	</Directory> \n\
-</VirtualHost> \n\
-<VirtualHost *:80> \n\
-	ServerAdmin service.informatique@my-serious-game.com \n\
-	ServerName projecteur.%%ndd%%.fr \n\
-	DocumentRoot /var/www/%%ndd2%%/projecteur \n\
-	<Directory /var/www/%%ndd2%%/projecteur> \n\
-		Options -Indexes +FollowSymLinks \n\
-		AllowOverride All \n\
-	</Directory> \n\
-</VirtualHost> \n\
-EOF
+RUN echo $'<VirtualHost *:80> \n	ServerAdmin service.informatique@my-serious-game.com \n	ServerName apprenant.%%ndd%%.fr \n	DocumentRoot /var/www/%%ndd2%%/apprenant \n	<Directory /var/www/%%ndd2%%/apprenant> \n		Options -Indexes +FollowSymLinks \n		AllowOverride All \n	</Directory> \n </VirtualHost> \n <VirtualHost *:80> \n	ServerAdmin service.informatique@my-serious-game.com \n	ServerName commun.%%ndd%%.fr \n	DocumentRoot /var/www/%%ndd2%%/commun \n	<Directory /var/www/%%ndd2%%/commun> \n		Options -Indexes +FollowSymLinks \n		AllowOverride All \n	</Directory> \n </VirtualHost> \n <VirtualHost *:80> \n	ServerAdmin service.informatique@my-serious-game.com \n	ServerName formateur.%%ndd%%.fr \n	DocumentRoot /var/www/%%ndd2%%/formateur \n	<Directory /var/www/%%ndd2%%/formateur> \n		Options -Indexes +FollowSymLinks \n		AllowOverride All \n	</Directory> \n </VirtualHost> \n <VirtualHost *:80> \n	ServerAdmin service.informatique@my-serious-game.com \n	ServerName projecteur.%%ndd%%.fr \n	DocumentRoot /var/www/%%ndd2%%/projecteur \n	<Directory /var/www/%%ndd2%%/projecteur> \n		Options -Indexes +FollowSymLinks \n		AllowOverride All \n </Directory> \n </VirtualHost> \n' >> /etc/apache2/sites-available/%%ndd2%%.conf
+
 RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%"
 RUN a2ensite "%%ndd2%%.conf"
 RUN a2enmod deflate expires filter headers rewrite
