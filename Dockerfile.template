@@ -33,10 +33,10 @@ RUN apt-get install -yq --no-install-recommends \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the locale
-RUN locale-gen %%locale%%.UTF-8
-ENV LANG %%locale%%.UTF-8
-ENV LANGUAGE %%locale%%:en
-ENV LC_ALL %%locale%%.UTF-8
+RUN locale-gen FR_fr.UTF-8
+ENV LANG FR_fr.UTF-8
+ENV LANGUAGE FR_fr:en
+ENV LC_ALL FR_fr.UTF-8
 
 ###############################
 # Install node
@@ -50,25 +50,18 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
 
-RUN echo $'#!/bin/sh\n\
-nodejs /home/%%dir%%/nodejs/index.js'\n\
->> /home/node-launcher.sh
+RUN echo $'#!/bin/sh\n nodejs /home/%%dir%%/nodejs/index.js' >> /home/node-launcher.sh
 
-RUN chmod +x /home/node-launcher.sh
+RUN echo $'#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh
 
-RUN echo $'#!/bin/sh\n\
-/home/node-launcher.sh'\n\
->> /etc/init.d/server-node.sh
-
-RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults
+RUN chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
 
 ###############################
 # param Apache
 ###############################
 
-RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%"
-RUN a2ensite "%%ndd2%%.conf"
-RUN a2enmod deflate expires filter headers rewrite
+RUN ln -s "/home/%%dir%%" "/var/www/%%dir%%" && a2ensite "%%ndd2%%.conf" && a2enmod deflate expires filter headers rewrite
+
 RUN cat > "/etc/apache2/sites-available/%%ndd2%%.conf" << 'EOF' \n\
 <VirtualHost *:80> \n\
 	ServerAdmin service.informatique@my-serious-game.com \n\
