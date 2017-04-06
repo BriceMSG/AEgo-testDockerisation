@@ -12,21 +12,6 @@ wifiName='TheChangeMaker'
 # Wifi password
 wifiPassword='Alteretgo2016'
 
-# Update the apt
-echo Update the apt
-apt update
-
-# Upgrade the apt
-echo Upgrade the apt
-apt --yes upgrade
-
-# Setting up French utf-8
-echo Reconfigure locales
-dpkg-reconfigure locales
-
-# Installing the required packages
-echo Installing packages
-
 # Creating subdomains
 echo Creating vhosts
 cat > "/etc/apache2/sites-available/$ndd2.conf" << EOF
@@ -159,44 +144,3 @@ echo Adding domains to the host
 cat >> /etc/hosts << EOF
 192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr
 EOF
-
-# Adding the ini script for nodejs
-echo Adding the launcher script for nodejs
-cat >> /home/pi/node-launcher.sh << EOF
-#!/bin/sh
-nodejs /home/pi/$dir/nodejs/index.js
-EOF
-
-# Adding the right to be executed
-echo Adding the right to be executed
-chmod +x /home/pi/node-launcher.sh
-chown pi.pi /home/pi/node-launcher.sh
-
-# Adding the ini script for nodejs
-echo Adding the init script for nodejs
-cat >> /etc/init.d/server-node.sh << EOF
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          skeleton
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Should-Start:      $portmap
-# Should-Stop:       $portmap
-# X-Start-Before:    nis
-# X-Stop-After:      nis
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# X-Interactive:     true
-# Short-Description: Example initscript
-# Description:       Auto-launched the nodejs for the socket.io.
-### END INIT INFO
-/home/pi/node-launcher.sh
-EOF
-
-# Adding the right to be executed
-echo Adding the right to be executed
-chmod +x /etc/init.d/server-node.sh
-
-# Adding the script to the update-rc
-echo Adding the script to the update-rc
-update-rc.d server-node.sh defaults
