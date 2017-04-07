@@ -51,10 +51,10 @@ COPY ./apprenant /var/www/alteretgo/apprenant
 COPY ./commun /var/www/alteretgo/commun
 COPY ./formateur /var/www/alteretgo/formateur
 COPY ./projecteur /var/www/alteretgo/projecteur
-COPY ./nodejs /home/alter-et-go/nodejs
-COPY ./start-up.sh /home/alter-et-go/start-up.sh
+COPY ./nodejs /home/alteretgo/nodejs
+COPY ./start-up.sh /home/alteretgo/start-up.sh
 
-RUN echo '#!/bin/sh\n node /home/alter-et-go/nodejs/index.js' >> /home/node-launcher.sh && echo '#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh && chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
+RUN echo '#!/bin/sh\n node /home/alteretgo/nodejs/index.js' >> /home/node-launcher.sh && echo '#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh && chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
 
 RUN chmod -R 777 ./start-up.sh && ./start-up.sh
 
