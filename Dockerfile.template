@@ -6,15 +6,9 @@ ENV INITSYSTEM on
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
-RUN mkdir /home/alteretgo && mkdir /var/www/alteretgo
+RUN mkdir /home/alteretgo
 
 WORKDIR /home/alter-et-go
-
-COPY ./apprenant /var/www/alteretgo/apprenant
-COPY ./commun /var/www/alteretgo/commun
-COPY ./formateur /var/www/alteretgo/formateur
-COPY ./projecteur /var/www/alteretgo/projecteur
-COPY ./nodejs /home/alter-et-go/nodejs
 
 ############################
 # Install needed softwares #
@@ -51,6 +45,13 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     rm "node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
+
+RUN mkdir /var/www/alteretgo
+COPY ./apprenant /var/www/alteretgo/apprenant
+COPY ./commun /var/www/alteretgo/commun
+COPY ./formateur /var/www/alteretgo/formateur
+COPY ./projecteur /var/www/alteretgo/projecteur
+COPY ./nodejs /home/alter-et-go/nodejs
 
 RUN echo '#!/bin/sh\n node /home/alter-et-go/nodejs/index.js' >> /home/node-launcher.sh && echo '#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh && chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
 
