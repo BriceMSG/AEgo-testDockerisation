@@ -6,7 +6,7 @@ ENV INITSYSTEM on
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
-RUN mkdir /home/alteretgo && /var/www/alteretgo
+RUN mkdir /home/alteretgo && mkdir /var/www/alteretgo
 
 WORKDIR /home/alter-et-go
 
