@@ -64,6 +64,8 @@ RUN chmod -R 777 ./start-up.sh
 
 RUN ./start-up.sh
 
+RUN echo $'192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr' >> /etc/hosts
+
 RUN ifconfig
 
 CMD bash /home/node-launcher.sh
