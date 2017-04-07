@@ -134,7 +134,8 @@ listen-address=192.168.200.1
 # Bind to the interface to make sure we aren't sending things elsewhere
 bind-interfaces
 # Forward DNS requests to Google DNS
-#server=192.168.200.1
+server=192.168.200.1
+local=/my-workflow.fr/
 # Don't forward short names
 domain-needed
 # Never forward addresses in the non-routed address spaces.
@@ -148,5 +149,3 @@ echo Adding domains to the host
 cat >> /etc/hosts << EOF
 192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr
 EOF
-
-# /etc/init.d/dnsmasq start
