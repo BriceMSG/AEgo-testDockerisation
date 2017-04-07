@@ -8,7 +8,7 @@ ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
 RUN mkdir /home/alteretgo
 
-WORKDIR /home/alter-et-go
+WORKDIR /home/alteretgo
 
 ############################
 # Install needed softwares #
