@@ -74,10 +74,14 @@ EOF
 
 # Wifi settings
 echo Changing the Wifi interface
-WIFISET="iface wlan0 inet static\n    address 192.168.200.1\n    netmask 255.255.255.0\n    network 192.168.200.0\n    broadcast 192.168.200.255"
-sed -i "s/iface wlan0 inet manual/$WIFISET/g" /etc/network/interfaces
-WIFIWPA="#    wpa-conf"
-sed -i "0,/    wpa-conf/{s/    wpa-conf/$WIFIWPA/}" /etc/network/interfaces
+cat > /etc/network/interfaces.d/wlan0 << EOF
+auto wlan0
+iface wlan0 inet static
+address 192.168.200.1
+netmask 255.255.255.0
+network 192.168.200.0
+broadcast 192.168.200.255
+EOF
 
 # Change the wifi settings
 echo Changing Wifi settings
@@ -144,3 +148,5 @@ echo Adding domains to the host
 cat >> /etc/hosts << EOF
 192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr
 EOF
+
+/etc/init.d/dnsmasq start
