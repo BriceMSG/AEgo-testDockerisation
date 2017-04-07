@@ -149,4 +149,6 @@ cat >> /etc/hosts << EOF
 192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr
 EOF
 
+ifup wlan0
+
 /etc/init.d/dnsmasq start
