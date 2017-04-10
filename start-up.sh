@@ -115,7 +115,7 @@ EOF
 
 echo Moving mysql db
 if [ ! -d /data/mysql ]; then
-	mysqld_safe & sleep 5
+	#mysqld_safe & sleep 5
 	mkdir -p /data/mysql
 	cp -r /var/lib/mysql/* /data/mysql
 	rm -rf /var/lib/mysql
