@@ -5,6 +5,12 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+CREATE DATABASE alteretgo;
+GRANT ALL ON *.* TO 'root'@'localhost';
+FLUSH PRIVILEGES;
+
+USE alteretgo;
+
 DROP TABLE IF EXISTS `chg_man_apprenant`;
 CREATE TABLE `chg_man_apprenant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
