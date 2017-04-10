@@ -6,5 +6,5 @@ echo Moving mysql db
 	#cp -r /var/lib/mysql/* /data/mysql
 	#rm -rf /var/lib/mysql
 	#chown -R mysql:mysql /data/mysql
-	mysql -u root < /home/alteretgo/alter.sql
+	mysql -h 127.0.0.1 -P 3306 -u root < /home/alteretgo/alter.sql
 #fi
