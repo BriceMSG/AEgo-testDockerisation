@@ -6,7 +6,7 @@ ENV INITSYSTEM on
 # Set the device type environment variable using Dockerfile templates
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
-RUN mkdir /home/alteretgo
+RUN mkdir /home/alteretgo && mkdir /data/mysql
 
 WORKDIR /home/alteretgo
 
@@ -36,8 +36,8 @@ RUN apt-get install -yq --no-install-recommends \
     php5-mysql \
     git \
     rfkill && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* #&& \
-    #sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf #&& \
     #chmod -R 777 ./db-init.sh && ./db-init.sh && \
     #./db-init.sh
 
