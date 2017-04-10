@@ -6,10 +6,10 @@ class Mysql{
 
 	# Parametres de la bdd
 	private $bddHost = 'localhost';
-	private $bddName = 'alter';
+	private $bddName = 'alteretgo';
 	private $bddPassword = 'root';
 	private $bddPrefixe = 'chg_man_';
-	private $bddUser = 'root';
+	private $bddUser = '';
 
 	private $sql;
 

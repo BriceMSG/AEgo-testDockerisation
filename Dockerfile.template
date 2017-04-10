@@ -34,6 +34,7 @@ RUN apt-get install -yq --no-install-recommends \
     git \
     rfkill && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf
 
 ################
 # Install node #
@@ -54,6 +55,8 @@ COPY ./formateur /var/www/alteretgo/formateur
 COPY ./projecteur /var/www/alteretgo/projecteur
 COPY ./nodejs /home/alteretgo/nodejs
 COPY ./start-up.sh /home/alteretgo/start-up.sh
+COPY ./alter.sql /home/alteretgo/alter.sql
+COPY ./mysql.php /var/www/alteretgo/mysql.php
 
 RUN echo '#!/bin/sh\n node /home/alteretgo/nodejs/index.js' >> /home/node-launcher.sh && echo '#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh && chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
 
