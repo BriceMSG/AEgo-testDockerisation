@@ -77,21 +77,21 @@ EOF
 # Change the wifi settings
 echo Changing Wifi settings
 cat > /etc/hostapd/hostapd.conf << EOF
-	interface=wlan0
-	driver=nl80211
-	ssid=$wifiName
-	hw_mode=g
-	channel=6
-	ieee80211n=1
-	wmm_enabled=1
-	ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
-	macaddr_acl=0
-	auth_algs=1
-	ignore_broadcast_ssid=0
-	wpa=2
-	wpa_key_mgmt=WPA-PSK
-	wpa_passphrase=$wifiPassword
-	rsn_pairwise=CCMP
+interface=wlan0
+driver=nl80211
+ssid=$wifiName
+hw_mode=g
+channel=6
+ieee80211n=1
+wmm_enabled=1
+ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_key_mgmt=WPA-PSK
+wpa_passphrase=$wifiPassword
+rsn_pairwise=CCMP
 EOF
 
 echo Modifying Hostapd settings
@@ -102,13 +102,13 @@ sed -i 's~#DAEMON_CONF=""~'"$DAEM"'~g' /etc/default/hostapd
 echo IP range setting
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
 cat > /etc/dnsmasq.conf << EOF
-	interface=wlan0
-	listen-address=192.168.200.1
-	bind-interfaces
-	server=127.0.0.1
-	local=/my-workflow.fr/
-	domain-needed
-	bogus-priv
-	dhcp-range=192.168.200.10,192.168.200.200,48h
-	address=/my-workflow.fr/192.168.200.1
+interface=wlan0
+listen-address=192.168.200.1
+bind-interfaces
+server=127.0.0.1
+local=/my-workflow.fr/
+domain-needed
+bogus-priv
+dhcp-range=192.168.200.10,192.168.200.200,48h
+address=/my-workflow.fr/192.168.200.1
 EOF
