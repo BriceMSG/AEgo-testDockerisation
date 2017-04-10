@@ -18,6 +18,7 @@ WORKDIR /home/alteretgo
 RUN apt-get update && apt-get -y upgrade && apt-get install -yq --no-install-recommends apt-utils
 RUN apt-get install -yq --no-install-recommends \
     dnsmasq \
+    nmap \
     locales \
     hostapd \
     iproute2 \
@@ -57,7 +58,5 @@ COPY ./start-up.sh /home/alteretgo/start-up.sh
 RUN echo '#!/bin/sh\n node /home/alteretgo/nodejs/index.js' >> /home/node-launcher.sh && echo '#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh && chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
 
 RUN chmod -R 777 ./start-up.sh && ./start-up.sh
-
-RUN echo $'192.168.200.1  apprenant.$ndd.fr commun.$ndd.fr formateur.$ndd.fr node.$ndd.fr projecteur.$ndd.fr' >> /etc/hosts
 
 CMD bash /home/node-launcher.sh
