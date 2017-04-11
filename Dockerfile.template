@@ -24,6 +24,7 @@ RUN apt-get install -yq --no-install-recommends \
     nmap \
     locales \
     hostapd \
+    mongodb \
     iproute2 \
     iw \
     libdbus-1-dev \
