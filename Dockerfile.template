@@ -55,9 +55,9 @@ WORKDIR /home/alteretgo/app
 RUN JOBS=MAX npm install --unsafe-perm --production && npm cache clean
 
 RUN echo '#!/bin/sh\n node /home/alteretgo/app/index.js' >> /home/alteretgo/node-launcher.sh && \
-    echo '#!/bin/sh\n /home/alteretgo/node-launcher.sh' >> /etc/init.d/server-node.sh && \
-    chmod +x /etc/init.d/server-node.sh && \
-    update-rc.d server-node.sh defaults && \
+    #echo '#!/bin/sh\n /home/alteretgo/node-launcher.sh' >> /etc/init.d/server-node.sh && \
+    #chmod +x /etc/init.d/server-node.sh && \
+    #update-rc.d server-node.sh defaults && \
     chmod +x /home/alteretgo/node-launcher.sh
 
 WORKDIR /home/alteretgo
