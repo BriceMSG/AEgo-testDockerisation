@@ -7,11 +7,12 @@ ENV INITSYSTEM on
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
 RUN mkdir /home/alteretgo
+RUN mkdir /var/www/alteretgo
+RUN mkdir /home/alteretgo/app
 
 WORKDIR /home/alteretgo
 
-COPY ./alter.sql /home/alteretgo/alter.sql
-#COPY ./db-init.sh /home/alteretgo/db-init.sh
+COPY ./app/install/alter.sql /home/alteretgo/alter.sql
 
 ############################
 # Install needed softwares #
@@ -37,9 +38,7 @@ RUN apt-get install -yq --no-install-recommends \
     php5-mysql \
     git \
     rfkill && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* #&& \
-    #chmod -R 777 ./db-init.sh && ./db-init.sh && \
-    #./db-init.sh
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ################
 # Install node #
@@ -53,16 +52,16 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
 
-RUN mkdir /var/www/alteretgo
-COPY ./apprenant /var/www/alteretgo/apprenant
-COPY ./commun /var/www/alteretgo/commun
-COPY ./formateur /var/www/alteretgo/formateur
-COPY ./projecteur /var/www/alteretgo/projecteur
-COPY ./nodejs /home/alteretgo/nodejs
+COPY ./app/interfaces /var/www/alteretgo
 COPY ./start-up.sh /home/alteretgo/start-up.sh
-COPY ./mysql.php /var/www/alteretgo/mysql.php
+COPY ./app/config/mysql.php /var/www/alteretgo/mysql.php
+COPY ./app/index.js /home/alteretgo/app/index.js
 
-RUN echo '#!/bin/sh\n node /home/alteretgo/nodejs/index.js' >> /home/node-launcher.sh && echo '#!/bin/sh\n /home/node-launcher.sh' >> /etc/init.d/server-node.sh && chmod +x /etc/init.d/server-node.sh && update-rc.d server-node.sh defaults && chmod +x /home/node-launcher.sh
+RUN echo '#!/bin/sh\n node /home/alteretgo/app/index.js' >> /home/alteretgo/node-launcher.sh && \
+    echo '#!/bin/sh\n /home/alteretgo/node-launcher.sh' >> /etc/init.d/server-node.sh && \
+    chmod +x /etc/init.d/server-node.sh && \
+    update-rc.d server-node.sh defaults && \
+    chmod +x /home/alteretgo/node-launcher.sh
 
 RUN chmod -R 777 ./start-up.sh && ./start-up.sh
 

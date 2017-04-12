@@ -1,0 +1,26 @@
+{
+  "name": "the-app-msg",
+  "version": "0.0.1",
+  "description": "elearning collaborative application",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BriceMSG/AEgo-testDockerisation.git"
+  },
+  "keywords": [
+    "msg"
+  ],
+  "dependencies": {
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "socket.io": "^1.7.3"
+  },
+  "author": ["Stanislas Poisson","Brice Beauvillain"],
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/BriceMSG/AEgo-testDockerisation/issues"
+  },
+  "homepage": "https://github.com/BriceMSG/AEgo-testDockerisation#readme",
+  "devDependencies": {
+  }
+}

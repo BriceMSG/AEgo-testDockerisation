@@ -1,4 +1,1 @@
-sftp-config.json
-*.sublime-project
-*.sublime-workspace
-datas/
+app/node_modules
