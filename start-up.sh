@@ -54,9 +54,6 @@ a2ensite "$ndd2.conf"
 echo Adding mods to Apache2
 a2enmod deflate expires filter headers rewrite
 
-echo Reloading Apache2
-service apache2 reload
-
 # Network settings
 echo Modifying DHCP
 cat >> /etc/dhcpcd.conf << EOF

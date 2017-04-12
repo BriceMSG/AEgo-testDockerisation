@@ -1,30 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Change Management | Alter&Go</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<base href="http://formateur.alteretgo.my-workflow.fr/">
-
-	<link href="http://commun.alteretgo.my-workflow.fr/normalize.css" rel="stylesheet" type="text/css">
-	<link href="http://commun.alteretgo.my-workflow.fr/formateur.css" rel="stylesheet" type="text/css">
-	<style type="text/css">
-		.armand {
-			background-color: #4caf50;
-			color: #000;
-			font-size: 1.25rem;
-		}
-		.armand.bad {
-			background-color: #ff9800;
-			color: #000;
-		}
-		.severine {
-			background-color: #6ec9f1;
-			color: #000;
-			font-size: 1.25rem;
-		}
-	</style>
-</head>
+<?php
+	include '../include/head.inc.php';
+?>
 <body>
 	<div id="header">
 		<div class="row">

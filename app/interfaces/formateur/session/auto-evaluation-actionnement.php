@@ -1,40 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Change Management | Alter&Go</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<base href="http://formateur.alteretgo.my-workflow.fr/">
-
-	<link href="http://commun.alteretgo.my-workflow.fr/normalize.css" rel="stylesheet" type="text/css">
-	<link href="http://commun.alteretgo.my-workflow.fr/formateur.css" rel="stylesheet" type="text/css">
-	<style>
-		div[id^=q] {
-			margin-bottom: .75rem;
-		}
-		div[id^=q] div {
-			display: block;
-			height: 2rem;
-			line-height: 2rem;
-			text-align: right;
-			padding-right: 1.5rem;
-			color: #fff;
-		}
-		.answered {
-			background-color: #507c9a;
-		}
-		.correctif {
-			background-color: #6ec9f1;
-		}
-		span.answered,
-		span.correctif {
-			display: inline-block;
-			vertical-align: middle;
-			width: 1rem !important;
-			height: 1rem !important;
-		}
-	</style>
-</head>
+<?php
+	include '../include/head.inc.php';
+?>
 <body>
 	<div id="header">
 		<div class="row">
