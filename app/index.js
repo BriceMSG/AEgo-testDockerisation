@@ -11,7 +11,7 @@ if (!fs.existsSync(isItInstalledAlReady)) {
 	console.log('creating log folder if needed');
 	if(!fs.existsSync('/data/log')) fs.mkdirSync('/data/log');
 	console.log('Moving / creating mysql db if needed');
-	exec('/etc/init.d/mysql stop'function(err, stdout, stderr) {
+	exec('/etc/init.d/mysql stop',function(err, stdout, stderr) {
 		exec('sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf');
 	});
 	if(!fs.existsSync('/data/mysql')){
