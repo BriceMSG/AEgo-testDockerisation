@@ -7,7 +7,6 @@ ENV INITSYSTEM on
 ENV DEVICE_TYPE=%%RESIN_MACHINE_NAME%%
 
 RUN mkdir /home/alteretgo
-RUN mkdir /var/www/alteretgo
 RUN mkdir /home/alteretgo/app
 
 WORKDIR /home/alteretgo
@@ -51,6 +50,8 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     rm "node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
+
+RUN mkdir /var/www/alteretgo
 
 COPY ./app/interfaces /var/www/alteretgo
 COPY ./start-up.sh /home/alteretgo/start-up.sh
