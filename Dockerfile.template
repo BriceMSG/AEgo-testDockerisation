@@ -63,4 +63,4 @@ RUN echo '#!/bin/sh\n node /home/alteretgo/app/index.js' >> /home/alteretgo/node
 WORKDIR /home/alteretgo
 RUN chmod -R 777 ./start-up.sh && ./start-up.sh
 
-CMD bash /home/node-launcher.sh
+CMD bash /home/alteretgo/node-launcher.sh
