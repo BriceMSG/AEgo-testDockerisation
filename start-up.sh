@@ -114,12 +114,13 @@ address=/my-workflow.fr/192.168.200.1
 EOF
 
 echo Moving mysql db
+/etc/init.d/mysql stop
+sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf
 if [ ! -d /data/mysql ]; then
 	mkdir -p /data/mysql
 	cp -r /var/lib/mysql/* /data/mysql
 	rm -rf /var/lib/mysql
 	chown -R mysql:mysql /data/mysql
-  sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf
-  /etc/init.d/mysql restart
-	mysql -u root < /home/alteretgo/alter.sql
 fi
+/etc/init.d/mysql start
+mysql -u root < /home/alteretgo/alter.sql
