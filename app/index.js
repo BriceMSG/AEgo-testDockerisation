@@ -1,9 +1,10 @@
-var express = require( 'express' ),
-	app = express(),
-	http = require( 'http' ).Server( app ),
-	io = require( 'socket.io' )( http );
+var express = require( 'express' );
+var	app = express();
+var	http = require( 'http' ).Server( app );
+var	io = require( 'socket.io' )( http );
 
 io.on( 'connection', function( socket ) {
+	console.log(socket);
   socket.on( 'msg', function( msg ){
     io.emit( 'msg', msg );
   } );
