@@ -112,20 +112,3 @@ bogus-priv
 dhcp-range=192.168.200.10,192.168.200.200,48h
 address=/my-workflow.fr/192.168.200.1
 EOF
-
-echo creating log folder if needed
-if [ ! -d /data/log ]; then
-mkdir -p /data/log
-fi
-
-echo Moving / creating mysql db if needed
-/etc/init.d/mysql stop
-sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf
-if [ ! -d /data/mysql ]; then
-	mkdir -p /data/mysql
-	cp -r /var/lib/mysql/* /data/mysql
-	rm -rf /var/lib/mysql
-	chown -R mysql:mysql /data/mysql
-fi
-/etc/init.d/mysql start
-mysql -u root < /home/alteretgo/alter.sql
