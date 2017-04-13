@@ -96,6 +96,7 @@
 		include '../include/notification.inc.php';
 		include '../include/screenRotation.inc.php';
 		include '../include/jsScripts.inc.php';
+		include '../include/js/'.basename(__FILE__, '.php').'.js';
 	?>
 
 	<script type="text/javascript">
