@@ -6,6 +6,24 @@
 	<link href="http://commun.alteretgo.my-workflow.fr/normalize.css" rel="stylesheet" type="text/css">
 	<link href="http://commun.alteretgo.my-workflow.fr/formateur.css" rel="stylesheet" type="text/css">
 
+	<!--actionnement style-->
+	<style type="text/css">
+		.armand {
+			background-color: #4caf50;
+			color: #000;
+			font-size: 1.25rem;
+		}
+		.armand.bad {
+			background-color: #ff9800;
+			color: #000;
+		}
+		.severine {
+			background-color: #6ec9f1;
+			color: #000;
+			font-size: 1.25rem;
+		}
+	</style>
+	
 	<!--auto-evaluation-actionnement style-->
 	<style>
 		div[id^=q] {
