@@ -34,7 +34,9 @@
 			</div>
 		</div>
 	</div>
-	<div id="forceLandscape"><div class="valign"><i class="material-icons">screen_rotation</i> Veuillez mettre la tablette à l'horizontale.</div></div>
+	<?php
+		include '../include/screenRotation.inc.php';
+	?>
 	<script type="text/javascript" src="http://commun.alteretgo.my-workflow.fr/jquery.min.js"></script>
 	<script type="text/javascript">
 		function goto(){
