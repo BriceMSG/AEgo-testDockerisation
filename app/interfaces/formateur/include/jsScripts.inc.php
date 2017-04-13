@@ -5,4 +5,4 @@
   <script type="text/javascript" src="http://commun.alteretgo.my-workflow.fr/js/gaia_lcs_func.js"></script>
 -->
 <script src="http://commun.alteretgo.my-workflow.fr/formateur.js"></script>
-<script type="text/javascript" src="../js/<?=basename(__FILE__, '.php').'.js';?>"></script>
+<script type="text/javascript" src="../js/<?=basename($_SERVER['SCRIPT_FILENAME'],'.php').'.js';?>"></script>
