@@ -4,27 +4,11 @@
 	include '../include/head.inc.php';
 ?>
 <body>
-	<div id="header">
-		<div class="row">
-			<div class="col-2 brw" onclick="toggleMenu();">
-				<i class="material-icons left">menu</i>
-				Menu
-			</div>
-			<div id="title" class="col-5 title">
-				Actionnement de Séverine
-			</div>
-			<div class="col-3 blw" onclick="setLocalData( 'pathname', '/session/auto-evaluation-actionnement.php' ); window.location = _uri + 'auto-evaluation-actionnement.php?_session=' + _ssid;">
-				<i class="material-icons right">equalizer</i>
-				Auto-évaluation
-			</div>
-			<div class="col-2 blw" onclick="testDebit.begin();">
-				<i class="material-icons right">network_check</i>
-				<span id="checkNetwork" class="right">Tester le débit</span>
-				<span id="networkSpeed" class="right" style="display:none;">Test en cours</span>
-			</div>
-		</div>
-	</div>
+
 	<?php
+		$_menu_title = "Actionnement de Séverine";
+		$_extra_button = '<div class="col-3 blw" onclick="setLocalData( \'pathname\', \'/session/auto-evaluation-actionnement.php\' ); window.location = _uri + \'auto-evaluation-actionnement.php?_session=\' + _ssid;"><i class="material-icons right">equalizer</i>Auto-évaluation</div>';
+		include '../include/topMenu.inc.php';
 		include '../include/noServ.inc.php';
 	?>
 	<div id="content">

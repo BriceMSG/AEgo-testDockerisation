@@ -4,19 +4,10 @@
 	include '../include/head.inc.php';
 ?>
 <body>
-	<div id="header">
-		<div class="row">
-			<div id="title" class="col-10 title">
-				Formation au "Change Management"
-			</div>
-			<div class="col-2 blw" onclick="testDebit.begin();">
-				<i class="material-icons right">network_check</i>
-				<span id="checkNetwork" class="right">Tester le débit</span>
-				<span id="networkSpeed" class="right" style="display:none;">Test en cours</span>
-			</div>
-		</div>
-	</div>
 	<?php
+		$_menu_title = 'Formation au "Change Management"';
+		$_extra_button = '';
+		include '../include/topMenu.inc.php';
 		include '../include/noServ.inc.php';
 	?>
 	<div id="content">

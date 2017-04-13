@@ -4,27 +4,10 @@
 	include '../include/head.inc.php';
 ?>
 <body>
-	<div id="header">
-		<div class="row">
-			<div class="col-2 brw" onclick="toggleMenu();">
-				<i class="material-icons left">menu</i>
-				Menu
-			</div>
-			<div id="title" class="col-5 title">
-				Quizz final
-			</div>
-			<div class="col-3 blw" onclick="goTo( 'certificat.php' );">
-				<i class="material-icons right">school</i>
-				Certificats
-			</div>
-			<div class="col-2 blw" onclick="testDebit.begin();">
-				<i class="material-icons right">network_check</i>
-				<span id="checkNetwork" class="right">Tester le débit</span>
-				<span id="networkSpeed" class="right" style="display:none;">Test en cours</span>
-			</div>
-		</div>
-	</div>
 	<?php
+		$_menu_title = "Quizz final";
+		$_extra_button = '<div class="col-3 blw" onclick="goTo( \'certificat.php\' );"><i class="material-icons right">school</i>Certificats</div>';
+		include '../include/topMenu.inc.php';
 		include '../include/noServ.inc.php';
 	?>
 	<div id="content">
