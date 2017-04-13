@@ -7,9 +7,9 @@ class Mysql{
 	# Parametres de la bdd
 	private $bddHost = 'localhost';
 	private $bddName = 'alteretgo';
-	private $bddPassword = 'root';
+	private $bddPassword = '';
 	private $bddPrefixe = 'chg_man_';
-	private $bddUser = '';
+	private $bddUser = 'root';
 
 	private $sql;
 

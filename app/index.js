@@ -27,6 +27,14 @@ if (!fs.existsSync(isItInstalledAlReady)) {
 		});
 	}
 	exec('touch /data/.installed')
+}else{
+	exec('/etc/init.d/mysql stop',function(err, stdout, stderr) {
+		exec('rm -rf /var/lib/mysql', function(err, stdout, stderr) {
+			exec('sed -i -e "s@^datadir.*@datadir = /data/mysql@" /etc/mysql/my.cnf', function(err, stdout, stderr) {
+				exec('/etc/init.d/mysql start');
+			});
+		});
+	});
 }
 
 io.on( 'connection', function( socket ) {
