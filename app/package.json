@@ -13,7 +13,8 @@
   "dependencies": {
     "express": "^4.15.2",
     "mongodb": "^2.2.25",
-    "socket.io": "^1.7.3"
+    "socket.io": "^1.7.3",
+    "mongoose": "^4.9.4"
   },
   "author": ["Stanislas Poisson","Brice Beauvillain"],
   "license": "UNLICENSED",

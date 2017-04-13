@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
 <?php
 	include './include/head.inc.php';
 ?>
-<body>
 	<div id="header">
 		<div class="row">
 			<div id="title" class="col-12 title">

@@ -1,4 +1,5 @@
 const express = require( 'express' );
+const mongoose = require('mongoose');
 const	app = express();
 const	http = require( 'http' ).Server( app );
 const	io = require( 'socket.io' )( http );
